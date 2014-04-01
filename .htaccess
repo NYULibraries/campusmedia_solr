@@ -1,0 +1,5 @@
+RewriteEngine on
+RewriteBase /campusmedia_solr/
+RewriteRule ^room(.*)$ lib/campusmedia/room.php [QSA,L]
+RewriteRule ^building(.*)$ lib/campusmedia/building.php [QSA,L]
+RewriteRule ^(/)?$ lib/campusmedia/index.php [QSA,L]
