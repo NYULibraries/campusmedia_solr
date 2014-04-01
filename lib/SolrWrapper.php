@@ -58,7 +58,7 @@ class SolrWrapper {
     $this->setHeader();
 
     if (isset($_REQUEST['rows'])) {
-      $buildings = $this->AMQPChannel(array("fq=dc.type:building","sort=score desc"));
+      $buildings = $this->solrURLWithParams(array("fq=dc.type:building","sort=score desc"));
     } else {
       $buildings = $this->solrURLWithParams(array("fq=dc.type:building","sort=score desc","rows=1000"));
     }
@@ -123,7 +123,7 @@ class SolrWrapper {
       "echoParams=explicit", 
       "qf=guid^5.0 dc.title^3.2 dc.description^3.0", 
       "pf=guid^5.0 dc.title^2.0 dc.description^1.5", 
-      "fl=guid,dc.title,dc.source,dc.description,dc.type,dc.format,dc.identifier,dc.audience,dc.hasPart,score,dc.instructionalMethod,format_exact,dc.coverage.spatial", 
+      "fl=guid,dc.title,dc.source,dc.description,dc.type,dc.formatdc.identifier,dc.audience,dc.hasPart,score,dc.instructionalMethod,format_exact,dc.coverage.spatial", 
       "ps=100", 
       "q.alt=*:*", 
       "facet=true", 
@@ -142,14 +142,6 @@ class SolrWrapper {
   	return $xml;
   }
 
-  protected function solrUrl($url) {
-  	return self::solr . $this->base_url . $url;	
-  }
-
-  protected function siteUrl($url) {
-  	return self::site . $url;
-  }
-  
   private function setHeader() {
     if(isset($_REQUEST['wt']) && $_REQUEST['wt'] == "json") {
       $this->setJSONHeader();
