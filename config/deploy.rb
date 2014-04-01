@@ -7,12 +7,13 @@ require 'nyulibraries/deploy/capistrano/tagging'
 require 'nyulibraries/deploy/capistrano/default_attributes'
 
 set :app_title, "campusmedia_solr"
+set(:app_symlink) { "#{app_path}#{app_title}" }
 
 namespace :deploy do
   
   desc "Find the string SOLR_URL_REPLACE and replace it with the WebSolr url from configula"
   task :replace_solr_url do
-    run "sed -i.bak 's/SOLR_URL_REPLACE/#{ENV['SOLR_URL']}/g' #{current_release}/lib/SolrWrapper.php"
+    run "sed -i.bak 's/SOLR_URL_REPLACE/#{ENV['SOLR_URL'].gsub("/","\\/").gsub("?", "\\?")}/g' #{current_release}/lib/SolrWrapper.php"
   end
   
   desc "Disable migrate task outside of rails environment"
@@ -20,6 +21,11 @@ namespace :deploy do
     # Nothing
   end
   
+  desc "Create symbolic link to new version of deployed app"
+  task :create_symlink do
+    run "rm -rf #{app_symlink} && ln -s #{current_path} #{app_symlink}"
+  end
+  
 end
 
-after "deploy", "deploy:replace_solr_url"
+after "deploy", "deploy:create_symlink", "deploy:replace_solr_url"
