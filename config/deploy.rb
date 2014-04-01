@@ -1,10 +1,10 @@
 require 'nyulibraries/deploy/capistrano/multistage'
-require 'nyulibraries/deploy/capistrano/bundler'
-require 'nyulibraries/deploy/capistrano/rvm'
+require 'nyulibraries/deploy/capistrano/default_attributes'
 require 'nyulibraries/deploy/capistrano/figs'
 require 'nyulibraries/deploy/capistrano/config'
+require 'nyulibraries/deploy/capistrano/bundler'
+require 'nyulibraries/deploy/capistrano/rvm'
 require 'nyulibraries/deploy/capistrano/tagging'
-require 'nyulibraries/deploy/capistrano/default_attributes'
 
 set :app_title, "campusmedia_solr"
 set(:app_symlink) { "#{app_path}#{app_title}" }
@@ -26,6 +26,11 @@ namespace :deploy do
     run "rm -rf #{app_symlink} && ln -s #{current_path} #{app_symlink}"
   end
   
+  desc "Create symbolic link to current release"
+  task :create_current_path_symlink do
+    run "rm -rf #{current_path} && ln -s #{current_release} #{current_path}"
+  end
+  
 end
 
-after "deploy", "deploy:create_symlink", "deploy:replace_solr_url"
+after "deploy", "deploy:create_symlink", "deploy:create_current_path_symlink", "deploy:replace_solr_url", "deploy:cleanup"
