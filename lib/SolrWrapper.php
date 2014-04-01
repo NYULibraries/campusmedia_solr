@@ -23,9 +23,9 @@ class SolrWrapper {
     $this->setHeader();
     
     if (isset($_REQUEST['rows'])) {
-      $campusmedia = $this->solrURLWithParams(["fq=dc.type:building","sort=score desc,title_exact asc"]);
+      $campusmedia = $this->solrURLWithParams(array("fq=dc.type:building","sort=score desc,title_exact asc"));
     } else {
-      $campusmedia = $this->solrURLWithParams(["fq=dc.type:building","sort=score desc,title_exact asc","rows=1000"]);
+      $campusmedia = $this->solrURLWithParams(array("fq=dc.type:building","sort=score desc,title_exact asc","rows=1000"));
     }
 
     echo $this->getXML($campusmedia);
@@ -35,9 +35,9 @@ class SolrWrapper {
     $this->setHeader();
     
     if (isset($_REQUEST['rows'])) {
-      $rooms = $this->solrURLWithParams(["fq=dc.type:room","sort=score desc,title_exact asc"]);
+      $rooms = $this->solrURLWithParams(array("fq=dc.type:room","sort=score desc,title_exact asc"));
     } else {
-      $rooms = $this->solrURLWithParams(["fq=dc.type:room","sort=score desc,title_exact asc","rows=1000"]);
+      $rooms = $this->solrURLWithParams(array("fq=dc.type:room","sort=score desc,title_exact asc","rows=1000"));
     }
 
     if (isset($_REQUEST['wt']) && $_REQUEST['wt'] == "xml") {
@@ -51,9 +51,9 @@ class SolrWrapper {
     $this->setHeader();
 
     if (isset($_REQUEST['rows'])) {
-      $buildings = $this->solrURLWithParams(["fq=dc.type:building","sort=score desc"]);
+      $buildings = $this->solrURLWithParams(array("fq=dc.type:building","sort=score desc"));
     } else {
-      $buildings = $this->solrURLWithParams(["fq=dc.type:building","sort=score desc","rows=1000"]);
+      $buildings = $this->solrURLWithParams(array("fq=dc.type:building","sort=score desc","rows=1000"));
     }
 
     echo $this->getXML($buildings);
