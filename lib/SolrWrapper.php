@@ -7,26 +7,33 @@ class SolrWrapper {
   protected $websolr_url = "SOLR_URL_REPLACE";
   
   public function __construct($type = "") {
-  	switch ($type)
-  	{
-  		case "rooms":
-  			$this->getRooms(); break;
-  		case "buildings":
-        $this->getBuildings(); break;
+    switch ($type)
+    {
+      case "rooms":
+        $this->getRooms(); 
+        break;
+      case "buildings":
+        $this->getBuildings(); 
+        break;
       case "default":
         $this->getDefault();
-      break;
+        break;
     }
   }
   
   protected function getDefault() {
     $this->setHeader();
     
-    if (isset($_REQUEST['rows'])) {
-      $campusmedia = $this->solrURLWithParams(array("fq=dc.type:building","sort=score desc,title_exact asc"));
-    } else {
-      $campusmedia = $this->solrURLWithParams(array("fq=dc.type:building","sort=score desc,title_exact asc","rows=1000"));
+    $search_params = array("sort=score desc,title_exact asc");
+    
+    if (!isset($_REQUEST['rows'])) {
+      array_push($search_params, "rows=1000");
+    } 
+    if (!isset($_REQUEST['fq'])) {
+      array_push($search_params, "fq=dc.type:building");
     }
+
+    $campusmedia = $this->solrURLWithParams($search_params);
 
     echo $this->getXML($campusmedia);
   }
@@ -51,7 +58,7 @@ class SolrWrapper {
     $this->setHeader();
 
     if (isset($_REQUEST['rows'])) {
-      $buildings = $this->solrURLWithParams(array("fq=dc.type:building","sort=score desc"));
+      $buildings = $this->AMQPChannel(array("fq=dc.type:building","sort=score desc"));
     } else {
       $buildings = $this->solrURLWithParams(array("fq=dc.type:building","sort=score desc","rows=1000"));
     }
