@@ -1,0 +1,1 @@
+# Campus Media Solr Wrapper
