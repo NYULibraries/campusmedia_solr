@@ -12,6 +12,10 @@ namespace :deploy do
   task :replace_solr_url do
     run "sed -i 's/SOLR_URL_REPLACE/#{ENV["SOLR_URL"]}/g' #{current_release}/lib/SolrWrapper.php"
   end
+  
+  task :migrate do
+    #nothing
+  end
 end
 
 after "deploy", "deploy:replace_solr_url" #"deploy:create_symlink", "deploy:create_current_path_symlink", 
