@@ -123,7 +123,7 @@ class SolrWrapper {
       "echoParams=explicit", 
       "qf=guid^5.0 dc.title^3.2 dc.description^3.0", 
       "pf=guid^5.0 dc.title^2.0 dc.description^1.5", 
-      "fl=guid,dc.title,dc.source,dc.description,dc.type,dc.formatdc.identifier,dc.audience,dc.hasPart,score,dc.instructionalMethod,format_exact,dc.coverage.spatial", 
+      "fl=guid,dc.title,dc.source,dc.description,dc.type,dc.format,dc.identifier,dc.audience,dc.hasPart,score,dc.instructionalMethod,format_exact,dc.coverage.spatial", 
       "ps=100", 
       "q.alt=*:*", 
       "facet=true", 
