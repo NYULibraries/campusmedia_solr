@@ -52,7 +52,7 @@
 
 <xsl:for-each select="./arr[@name='dc.hasPart']/str">
 
-<xsl:for-each select="document(concat('http://web1.library.nyu.edu/campusmedia_solr/?fq=dc.type:equipment&amp;fq=guid:',.))//result/doc/arr[@name='dc.format']/str">
+<xsl:for-each select="document(concat('SOLR_URL_REPLACE?fq=dc.type:equipment&amp;fq=guid:',.))//result/doc/arr[@name='dc.format']/str">
 <xsl:if test="not(.='') and . and not(preceding::node() = .)">
 
 <xsl:element name="category">
