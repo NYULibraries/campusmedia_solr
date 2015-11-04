@@ -1,10 +1,10 @@
-require 'nyulibraries/deploy/capistrano/multistage'
-require 'nyulibraries/deploy/capistrano/default_attributes'
-require 'nyulibraries/deploy/capistrano/figs'
-require 'nyulibraries/deploy/capistrano/config'
-require 'nyulibraries/deploy/capistrano/bundler'
-require 'nyulibraries/deploy/capistrano/rvm'
-require 'nyulibraries/deploy/capistrano/tagging'
+require 'formaggio/capistrano/multistage'
+require 'formaggio/capistrano/default_attributes'
+require 'formaggio/capistrano/figs'
+require 'formaggio/capistrano/config'
+require 'formaggio/capistrano/bundler'
+require 'formaggio/capistrano/rvm'
+require 'formaggio/capistrano/tagging'
 
 set :app_title, "campusmedia_solr"
 set(:app_symlink) { "#{app_path}#{app_title}" }
