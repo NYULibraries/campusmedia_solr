@@ -8,6 +8,7 @@ require 'nyulibraries/deploy/capistrano/tagging'
 
 set :app_title, "campusmedia_solr"
 set(:app_symlink) { "#{app_path}#{app_title}" }
+set :rvm_ruby_string, "2.1.5"
 
 namespace :deploy do
 
